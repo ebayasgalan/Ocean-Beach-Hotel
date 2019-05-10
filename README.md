@@ -1,1 +1,2 @@
-# Baker-Beach-Hotel
+# Ocean-Beach-Hotel
+
