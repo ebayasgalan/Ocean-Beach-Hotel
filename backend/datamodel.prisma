@@ -3,3 +3,12 @@ type User {
   name: String!
   email: String!
 }
+type Reservation {
+  id: ID! @id
+  checkIn: DateTime! 
+  checkOut: DateTime!
+  roomType: String!
+  price: Int!
+  user: User!
+  createdAt: DateTime! @createdAt
+}

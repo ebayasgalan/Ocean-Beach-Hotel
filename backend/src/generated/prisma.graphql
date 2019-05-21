@@ -1,5 +1,9 @@
 # source: https://us1.prisma.sh/enkhtaivan-bayasgalan-fcef3a/ocean-beach/dev
-# timestamp: Thu May 16 2019 01:45:18 GMT-0700 (Pacific Daylight Time)
+# timestamp: Fri May 17 2019 20:36:02 GMT-0700 (Pacific Daylight Time)
+
+type AggregateReservation {
+  count: Int!
+}
 
 type AggregateUser {
   count: Int!
@@ -10,6 +14,8 @@ type BatchPayload {
   count: Long!
 }
 
+scalar DateTime
+
 """
 The `Long` scalar type represents non-fractional signed whole numeric values.
 Long can represent values between -(2^63) and 2^63 - 1.
@@ -17,11 +23,17 @@ Long can represent values between -(2^63) and 2^63 - 1.
 scalar Long
 
 type Mutation {
+  createReservation(data: ReservationCreateInput!): Reservation!
   createUser(data: UserCreateInput!): User!
+  updateReservation(data: ReservationUpdateInput!, where: ReservationWhereUniqueInput!): Reservation
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): User
+  deleteReservation(where: ReservationWhereUniqueInput!): Reservation
   deleteUser(where: UserWhereUniqueInput!): User
+  upsertReservation(where: ReservationWhereUniqueInput!, create: ReservationCreateInput!, update: ReservationUpdateInput!): Reservation!
   upsertUser(where: UserWhereUniqueInput!, create: UserCreateInput!, update: UserUpdateInput!): User!
+  updateManyReservations(data: ReservationUpdateManyMutationInput!, where: ReservationWhereInput): BatchPayload!
   updateManyUsers(data: UserUpdateManyMutationInput!, where: UserWhereInput): BatchPayload!
+  deleteManyReservations(where: ReservationWhereInput): BatchPayload!
   deleteManyUsers(where: UserWhereInput): BatchPayload!
 }
 
@@ -53,8 +65,11 @@ type PageInfo {
 }
 
 type Query {
+  reservations(where: ReservationWhereInput, orderBy: ReservationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Reservation]!
   users(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [User]!
+  reservation(where: ReservationWhereUniqueInput!): Reservation
   user(where: UserWhereUniqueInput!): User
+  reservationsConnection(where: ReservationWhereInput, orderBy: ReservationOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): ReservationConnection!
   usersConnection(where: UserWhereInput, orderBy: UserOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): UserConnection!
 
   """Fetches an object given its ID"""
@@ -64,7 +79,308 @@ type Query {
   ): Node
 }
 
+type Reservation implements Node {
+  id: ID!
+  checkIn: DateTime!
+  checkOut: DateTime!
+  roomType: String!
+  price: Int!
+  user: User!
+  createdAt: DateTime!
+}
+
+"""A connection to a list of items."""
+type ReservationConnection {
+  """Information to aid in pagination."""
+  pageInfo: PageInfo!
+
+  """A list of edges."""
+  edges: [ReservationEdge]!
+  aggregate: AggregateReservation!
+}
+
+input ReservationCreateInput {
+  id: ID
+  checkIn: DateTime!
+  checkOut: DateTime!
+  roomType: String!
+  price: Int!
+  user: UserCreateOneInput!
+}
+
+"""An edge in a connection."""
+type ReservationEdge {
+  """The item at the end of the edge."""
+  node: Reservation!
+
+  """A cursor for use in pagination."""
+  cursor: String!
+}
+
+enum ReservationOrderByInput {
+  id_ASC
+  id_DESC
+  checkIn_ASC
+  checkIn_DESC
+  checkOut_ASC
+  checkOut_DESC
+  roomType_ASC
+  roomType_DESC
+  price_ASC
+  price_DESC
+  createdAt_ASC
+  createdAt_DESC
+}
+
+type ReservationPreviousValues {
+  id: ID!
+  checkIn: DateTime!
+  checkOut: DateTime!
+  roomType: String!
+  price: Int!
+  createdAt: DateTime!
+}
+
+type ReservationSubscriptionPayload {
+  mutation: MutationType!
+  node: Reservation
+  updatedFields: [String!]
+  previousValues: ReservationPreviousValues
+}
+
+input ReservationSubscriptionWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ReservationSubscriptionWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ReservationSubscriptionWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ReservationSubscriptionWhereInput!]
+
+  """
+  The subscription event gets dispatched when it's listed in mutation_in
+  """
+  mutation_in: [MutationType!]
+
+  """
+  The subscription event gets only dispatched when one of the updated fields names is included in this list
+  """
+  updatedFields_contains: String
+
+  """
+  The subscription event gets only dispatched when all of the field names included in this list have been updated
+  """
+  updatedFields_contains_every: [String!]
+
+  """
+  The subscription event gets only dispatched when some of the field names included in this list have been updated
+  """
+  updatedFields_contains_some: [String!]
+  node: ReservationWhereInput
+}
+
+input ReservationUpdateInput {
+  checkIn: DateTime
+  checkOut: DateTime
+  roomType: String
+  price: Int
+  user: UserUpdateOneRequiredInput
+}
+
+input ReservationUpdateManyMutationInput {
+  checkIn: DateTime
+  checkOut: DateTime
+  roomType: String
+  price: Int
+}
+
+input ReservationWhereInput {
+  """Logical AND on all given filters."""
+  AND: [ReservationWhereInput!]
+
+  """Logical OR on all given filters."""
+  OR: [ReservationWhereInput!]
+
+  """Logical NOT on all given filters combined by AND."""
+  NOT: [ReservationWhereInput!]
+  id: ID
+
+  """All values that are not equal to given value."""
+  id_not: ID
+
+  """All values that are contained in given list."""
+  id_in: [ID!]
+
+  """All values that are not contained in given list."""
+  id_not_in: [ID!]
+
+  """All values less than the given value."""
+  id_lt: ID
+
+  """All values less than or equal the given value."""
+  id_lte: ID
+
+  """All values greater than the given value."""
+  id_gt: ID
+
+  """All values greater than or equal the given value."""
+  id_gte: ID
+
+  """All values containing the given string."""
+  id_contains: ID
+
+  """All values not containing the given string."""
+  id_not_contains: ID
+
+  """All values starting with the given string."""
+  id_starts_with: ID
+
+  """All values not starting with the given string."""
+  id_not_starts_with: ID
+
+  """All values ending with the given string."""
+  id_ends_with: ID
+
+  """All values not ending with the given string."""
+  id_not_ends_with: ID
+  checkIn: DateTime
+
+  """All values that are not equal to given value."""
+  checkIn_not: DateTime
+
+  """All values that are contained in given list."""
+  checkIn_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  checkIn_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  checkIn_lt: DateTime
+
+  """All values less than or equal the given value."""
+  checkIn_lte: DateTime
+
+  """All values greater than the given value."""
+  checkIn_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  checkIn_gte: DateTime
+  checkOut: DateTime
+
+  """All values that are not equal to given value."""
+  checkOut_not: DateTime
+
+  """All values that are contained in given list."""
+  checkOut_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  checkOut_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  checkOut_lt: DateTime
+
+  """All values less than or equal the given value."""
+  checkOut_lte: DateTime
+
+  """All values greater than the given value."""
+  checkOut_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  checkOut_gte: DateTime
+  roomType: String
+
+  """All values that are not equal to given value."""
+  roomType_not: String
+
+  """All values that are contained in given list."""
+  roomType_in: [String!]
+
+  """All values that are not contained in given list."""
+  roomType_not_in: [String!]
+
+  """All values less than the given value."""
+  roomType_lt: String
+
+  """All values less than or equal the given value."""
+  roomType_lte: String
+
+  """All values greater than the given value."""
+  roomType_gt: String
+
+  """All values greater than or equal the given value."""
+  roomType_gte: String
+
+  """All values containing the given string."""
+  roomType_contains: String
+
+  """All values not containing the given string."""
+  roomType_not_contains: String
+
+  """All values starting with the given string."""
+  roomType_starts_with: String
+
+  """All values not starting with the given string."""
+  roomType_not_starts_with: String
+
+  """All values ending with the given string."""
+  roomType_ends_with: String
+
+  """All values not ending with the given string."""
+  roomType_not_ends_with: String
+  price: Int
+
+  """All values that are not equal to given value."""
+  price_not: Int
+
+  """All values that are contained in given list."""
+  price_in: [Int!]
+
+  """All values that are not contained in given list."""
+  price_not_in: [Int!]
+
+  """All values less than the given value."""
+  price_lt: Int
+
+  """All values less than or equal the given value."""
+  price_lte: Int
+
+  """All values greater than the given value."""
+  price_gt: Int
+
+  """All values greater than or equal the given value."""
+  price_gte: Int
+  createdAt: DateTime
+
+  """All values that are not equal to given value."""
+  createdAt_not: DateTime
+
+  """All values that are contained in given list."""
+  createdAt_in: [DateTime!]
+
+  """All values that are not contained in given list."""
+  createdAt_not_in: [DateTime!]
+
+  """All values less than the given value."""
+  createdAt_lt: DateTime
+
+  """All values less than or equal the given value."""
+  createdAt_lte: DateTime
+
+  """All values greater than the given value."""
+  createdAt_gt: DateTime
+
+  """All values greater than or equal the given value."""
+  createdAt_gte: DateTime
+  user: UserWhereInput
+}
+
+input ReservationWhereUniqueInput {
+  id: ID
+}
+
 type Subscription {
+  reservation(where: ReservationSubscriptionWhereInput): ReservationSubscriptionPayload
   user(where: UserSubscriptionWhereInput): UserSubscriptionPayload
 }
 
@@ -88,6 +404,11 @@ input UserCreateInput {
   id: ID
   name: String!
   email: String!
+}
+
+input UserCreateOneInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
 }
 
 """An edge in a connection."""
@@ -153,6 +474,11 @@ input UserSubscriptionWhereInput {
   node: UserWhereInput
 }
 
+input UserUpdateDataInput {
+  name: String
+  email: String
+}
+
 input UserUpdateInput {
   name: String
   email: String
@@ -161,6 +487,18 @@ input UserUpdateInput {
 input UserUpdateManyMutationInput {
   name: String
   email: String
+}
+
+input UserUpdateOneRequiredInput {
+  create: UserCreateInput
+  connect: UserWhereUniqueInput
+  update: UserUpdateDataInput
+  upsert: UserUpsertNestedInput
+}
+
+input UserUpsertNestedInput {
+  update: UserUpdateDataInput!
+  create: UserCreateInput!
 }
 
 input UserWhereInput {
