@@ -1,14 +1,17 @@
 type User {
   id: ID! @id
   name: String!
-  email: String!
+  email: String! @unique
+  password: String!
+  resetToken: String
+  resetTokenExpiry: Float
 }
 type Reservation {
   id: ID! @id
   checkIn: DateTime! 
   checkOut: DateTime!
   roomType: String!
-  price: Int!
+  price: Int
   user: User!
   createdAt: DateTime! @createdAt
 }

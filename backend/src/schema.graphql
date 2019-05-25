@@ -1,12 +1,48 @@
+# import * from './generated/prisma.graphql'
+
 type User {
   id: ID!
   name: String!
+  email: String!
+  password: String!
+  reservations: [Reservation]
+}
+
+type SuccessMessage {
+  message: String
 }
 
 type Mutation {
-  hello: String
+  createReservation(
+    checkIn: DateTime
+    checkOut: DateTime
+    roomType: String
+  ): Reservation!
+  updateReservation(
+    id: ID!
+    checkIn: DateTime
+    checkOut: DateTime
+    roomType: String
+  ): Reservation
+  deleteReservation(id: ID!): Reservation
+  signup(email: String!, password: String!, name: String!): User!
+  signin(email: String!, password: String!): User!
+  signout: SuccessMessage
+  requestReset(email: String!): SuccessMessage
+  resetPassword(
+    resetToken: String!
+    password: String!
+    confirmPassword: String!
+  ): User!
 }
 
 type Query {
-  hello: String
+  reservations(
+    where: ReservationWhereInput
+    orderBy: ReservationOrderByInput
+    skip: Int
+    first: Int
+  ): [Reservation]!
+  reservation(id: ID!): Reservation!
+  me: User
 }

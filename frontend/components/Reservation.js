@@ -1,16 +1,25 @@
 import React, { Component } from "react";
+import gql from "graphql-tag";
+import { Mutation } from "react-apollo";
 import Form from "./styles/Form";
+import Error from "./ErrorMessage";
+import { CURRENT_USER_QUERY } from "./User";
 
 const RESERVE_MUTATION = gql`
   mutation RESERVE_MUTATION(
-    $checkIn: Date!
-    $checkOut: Date!
+    $checkIn: String!
+    $checkOut: String!
     $roomType: String!
   ) {
-    reserve(checkIn: $checkIn, checkOut: $checkOut, roomType: $roomType) {
+    createReservation(
+      checkIn: $checkIn
+      checkOut: $checkOut
+      roomType: $roomType
+    ) {
       id
       checkIn
       checkOut
+      roomType
     }
   }
 `;
@@ -27,17 +36,17 @@ class Reservation extends Component {
   render() {
     return (
       <Mutation
-        mutation={SIGNUP_MUTATION}
+        mutation={RESERVE_MUTATION}
         variables={this.state}
         refetchQueries={[{ query: CURRENT_USER_QUERY }]}
       >
-        {(reserve, { error, loading }) => {
+        {(createReservation, { error, loading }) => {
           return (
             <Form
               method="post"
               onSubmit={async e => {
                 e.preventDefault();
-                await reserve();
+                await createReservation();
                 this.setState({
                   checkIn: "",
                   checkOut: "",
