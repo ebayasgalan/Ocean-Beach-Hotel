@@ -12,6 +12,6 @@ type Reservation {
   checkOut: DateTime!
   roomType: String!
   price: Int
-  user: User!
+  user: User
   createdAt: DateTime! @createdAt
 }

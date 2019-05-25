@@ -44,5 +44,7 @@ type Query {
     first: Int
   ): [Reservation]!
   reservation(id: ID!): Reservation!
+  reservationsConnection(where: ReservationWhereInput): ReservationConnection!
   me: User
+  users: [User]!
 }

@@ -7,8 +7,8 @@ import { CURRENT_USER_QUERY } from "./User";
 
 const RESERVE_MUTATION = gql`
   mutation RESERVE_MUTATION(
-    $checkIn: String!
-    $checkOut: String!
+    $checkIn: DateTime!
+    $checkOut: DateTime!
     $roomType: String!
   ) {
     createReservation(
@@ -28,7 +28,7 @@ class Reservation extends Component {
   state = {
     checkIn: "",
     checkOut: "",
-    roomType: ""
+    roomType: "Deluxe Full"
   };
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -50,7 +50,7 @@ class Reservation extends Component {
                 this.setState({
                   checkIn: "",
                   checkOut: "",
-                  roomType: ""
+                  roomType: "Deluxe Full"
                 });
               }}
             >
@@ -78,10 +78,10 @@ class Reservation extends Component {
                 <label htmlFor="roomType">
                   Room Type
                   <select name="roomType" onChange={this.saveToState}>
-                    <option value={this.state.roomType}>Deluxe Full</option>
-                    <option value={this.state.roomType}>Deluxe Queen</option>
-                    <option value={this.state.roomType}>Deluxe Twin</option>
-                    <option value={this.state.roomType}>Suite</option>
+                    <option value="Deluxe Full">Deluxe Full</option>
+                    <option value="Deluxe Queen">Deluxe Queen</option>
+                    <option value="Deluxe Twin">Deluxe Twin</option>
+                    <option value="Suite">Suite</option>
                   </select>
                 </label>
                 <button type="submit">Reserve</button>

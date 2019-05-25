@@ -1,5 +1,5 @@
 # source: https://us1.prisma.sh/enkhtaivan-bayasgalan-fcef3a/ocean-beach/dev
-# timestamp: Thu May 23 2019 08:42:55 GMT-0700 (Pacific Daylight Time)
+# timestamp: Fri May 24 2019 23:15:21 GMT-0700 (Pacific Daylight Time)
 
 type AggregateReservation {
   count: Int!
@@ -85,7 +85,7 @@ type Reservation implements Node {
   checkOut: DateTime!
   roomType: String!
   price: Int
-  user: User!
+  user: User
   createdAt: DateTime!
 }
 
@@ -105,7 +105,7 @@ input ReservationCreateInput {
   checkOut: DateTime!
   roomType: String!
   price: Int
-  user: UserCreateOneInput!
+  user: UserCreateOneInput
 }
 
 """An edge in a connection."""
@@ -185,7 +185,7 @@ input ReservationUpdateInput {
   checkOut: DateTime
   roomType: String
   price: Int
-  user: UserUpdateOneRequiredInput
+  user: UserUpdateOneInput
 }
 
 input ReservationUpdateManyMutationInput {
@@ -513,9 +513,11 @@ input UserUpdateManyMutationInput {
   resetTokenExpiry: Float
 }
 
-input UserUpdateOneRequiredInput {
+input UserUpdateOneInput {
   create: UserCreateInput
   connect: UserWhereUniqueInput
+  disconnect: Boolean
+  delete: Boolean
   update: UserUpdateDataInput
   upsert: UserUpsertNestedInput
 }

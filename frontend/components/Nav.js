@@ -5,8 +5,7 @@ import Signout from "./Signout";
 
 const Nav = () => (
   <User>
-    {({ data }) => {
-      console.log("this is the data: ", data);
+    {({ data: { me } }) => {
       return (
         <NavStyles>
           <Link href="/">
@@ -18,7 +17,7 @@ const Nav = () => (
           <Link href="/contact">
             <a>Contact</a>
           </Link>
-          {/* {me && (
+          {me && (
             <>
               <Link href="/reservation">
                 <a>Reservations</a>
@@ -30,7 +29,7 @@ const Nav = () => (
             <Link href="/signup">
               <a>Signin</a>
             </Link>
-          )} */}
+          )}
         </NavStyles>
       );
     }}
