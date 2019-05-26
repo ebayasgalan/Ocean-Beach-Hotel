@@ -1,5 +1,6 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import styled from "styled-components";
 import { perPage } from "../config";
 
 const ALL_RESERVATIONS_QUERY = gql`
@@ -11,6 +12,14 @@ const ALL_RESERVATIONS_QUERY = gql`
       roomType
     }
   }
+`;
+
+const ReservationsList = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  margin: 0 auto;
+  max-width: ${props => props.theme.maxWidth};
 `;
 
 function Reservations(props) {

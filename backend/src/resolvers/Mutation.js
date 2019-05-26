@@ -9,6 +9,11 @@ const Mutations = {
     const reservation = await ctx.db.mutation.createReservation(
       {
         data: {
+          user: {
+            connect: {
+              id: ctx.request.userId
+            }
+          },
           ...args
         }
       },

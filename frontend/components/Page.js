@@ -7,7 +7,8 @@ const theme = {
   primary: "#b867c6",
   light: "#ec97f9",
   dark: "#863895",
-  textColor: "#393939"
+  textColor: "#393939",
+  maxWidth: "1000px"
 };
 
 const StyledPage = styled.div`
