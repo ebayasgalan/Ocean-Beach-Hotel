@@ -1,8 +1,6 @@
 const { forwardTo } = require("prisma-binding");
 
 const Query = {
-  reservations: forwardTo("db"),
-  reservation: forwardTo("db"),
   reservationsConnection: forwardTo("db"),
   me(parent, args, ctx, info) {
     // check if there's a current user
