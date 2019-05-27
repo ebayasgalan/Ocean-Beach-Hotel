@@ -13,7 +13,7 @@ const SignupPage = props => (
   <Columns>
     <Signin />
     <Signup />
-    <RequestReset />
+    {/* <RequestReset /> */}
   </Columns>
 );
 

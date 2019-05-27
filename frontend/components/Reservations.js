@@ -24,24 +24,25 @@ const ReservationsList = styled.div`
 
 function Reservations(props) {
   return (
-      <Query
-        query={ALL_RESERVATIONS_QUERY}
-        variables={{
-          skip: props.page * perPage - perPage
-        }}
-      >
-        {({ data, error, loading }) => {
-          if (loading) return <p>Loading...</p>;
-          if (error) return <p>Error: {error.message}</p>;
-          return (
-            <ReservationsList>
-              {data.reservations.map(reservation => (
-
-              ))}
-            </ReservationsList>
-          );
-        }}
-      </Query>
+    <Query
+      query={ALL_RESERVATIONS_QUERY}
+      variables={{
+        skip: props.page * perPage - perPage
+      }}
+    >
+      {({ data: { reservations }, error, loading }) => {
+        console.log(reservations);
+        if (loading) return <p>Loading...</p>;
+        if (error) return <p>Error: {error.message}</p>;
+        return (
+          <ReservationsList>
+            {reservations.map(reservation => (
+              <div key={reservation.id}>{reservation.id}</div>
+            ))}
+          </ReservationsList>
+        );
+      }}
+    </Query>
   );
 }
 

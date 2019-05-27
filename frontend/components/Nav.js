@@ -19,7 +19,7 @@ const Nav = () => (
           </Link>
           {me && (
             <>
-              <Link href="/reservation">
+              <Link href="/reservations">
                 <a>Reservations</a>
               </Link>
               <Signout />
