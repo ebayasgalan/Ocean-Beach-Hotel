@@ -8,7 +8,7 @@ const server = createServer();
 
 server.express.use(cookieParser());
 
-// Express middleware to handle JWT
+// Express middleware to handle JSON WEB TOKEN
 server.express.use((req, res, next) => {
   const { token } = req.cookies;
   if (token) {

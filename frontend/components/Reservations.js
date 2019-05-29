@@ -36,9 +36,10 @@ function Reservations() {
   return (
     <>
       <Query query={ALL_RESERVATIONS_QUERY}>
-        {({ data: { reservations }, error, loading }) => {
+        {({ data, error, loading }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
+          const reservations = data.reservations;
           return (
             <>
               <h1 style={{ textAlign: "center" }}>Reservations</h1>
