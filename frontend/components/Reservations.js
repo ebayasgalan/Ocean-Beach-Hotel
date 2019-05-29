@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
-import Link from "next/Link";
+import Link from "next/link";
 import styled from "styled-components";
 import ReservationList from "./ReservationList";
 import Button from "../components/styles/CoolButton";
