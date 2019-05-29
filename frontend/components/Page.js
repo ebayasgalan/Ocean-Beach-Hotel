@@ -8,7 +8,8 @@ const theme = {
   light: "#ec97f9",
   dark: "#863895",
   textColor: "#393939",
-  maxWidth: "1000px"
+  maxWidth: "1000px",
+  bs: "0 10px 22px 0 rgba(0, 0, 0, 0.09)"
 };
 
 const StyledPage = styled.div`
