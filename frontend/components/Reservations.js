@@ -1,13 +1,13 @@
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Link from "next/Link";
 import styled from "styled-components";
-import { perPage } from "../config";
 import ReservationList from "./ReservationList";
 import Button from "../components/styles/CoolButton";
 
 const ALL_RESERVATIONS_QUERY = gql`
-  query ALL_RESERVATIONS_QUERY($skip: Int = 0, $first: Int = ${perPage}) { 
-    reservations(first: $first, skip: $skip, orderBy: createdAt_DESC ) {
+  query ALL_RESERVATIONS_QUERY {
+    reservations {
       id
       checkIn
       checkOut
@@ -25,15 +25,17 @@ const StyledList = styled.div`
   max-width: ${props => props.theme.maxWidth};
 `;
 
-function Reservations(props) {
+const StyledButton = styled.div`
+  display: grid;
+  grid-template-columns: 1fr;
+  margin: 10px auto;
+  max-width: 250px;
+`;
+
+function Reservations() {
   return (
     <>
-      <Query
-        query={ALL_RESERVATIONS_QUERY}
-        variables={{
-          skip: props.page * perPage - perPage
-        }}
-      >
+      <Query query={ALL_RESERVATIONS_QUERY}>
         {({ data: { reservations }, error, loading }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error: {error.message}</p>;
@@ -48,11 +50,17 @@ function Reservations(props) {
                   />
                 ))}
               </StyledList>
+              <StyledButton>
+                <Button>
+                  <Link href="/new_reservation">
+                    <a>New Reservation</a>
+                  </Link>
+                </Button>
+              </StyledButton>
             </>
           );
         }}
       </Query>
-      <Button>Make a new reservation</Button>
     </>
   );
 }
