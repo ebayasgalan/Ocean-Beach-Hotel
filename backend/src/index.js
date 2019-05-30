@@ -3,10 +3,12 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: "variables.env" });
 const createServer = require("./createServer");
 const db = require("./db");
+const cors = require("cors");
 
 const server = createServer();
 
 server.express.use(cookieParser());
+server.express.use(cors());
 
 // Express middleware to handle JSON WEB TOKEN
 server.express.use((req, res, next) => {
@@ -31,14 +33,14 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
-// server.start(
-//   {
-//     cors: {
-//       credentials: true,
-//       origin: process.env.FRONTEND_URL
-//     }
-//   },
-//   deets => {
-//     console.log(`Server is running on port http:/localhost:${deets.port}`);
-//   }
-// );
+server.start(
+  {
+    cors: {
+      credentials: true,
+      origin: process.env.FRONTEND_URL
+    }
+  },
+  deets => {
+    console.log(`Server is running on port http:/localhost:${deets.port}`);
+  }
+);
