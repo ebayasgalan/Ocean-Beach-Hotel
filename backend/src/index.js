@@ -31,14 +31,14 @@ server.express.use(async (req, res, next) => {
   next();
 });
 
-server.start(
-  {
-    cors: {
-      credentials: true,
-      origin: process.env.PRISMA_ENDPOINT
-    }
-  },
-  deets => {
-    console.log(`Server is running on port http:/localhost:${deets.port}`);
-  }
-);
+// server.start(
+//   {
+//     cors: {
+//       credentials: true,
+//       origin: process.env.FRONTEND_URL
+//     }
+//   },
+//   deets => {
+//     console.log(`Server is running on port http:/localhost:${deets.port}`);
+//   }
+// );
