@@ -8,8 +8,7 @@ function createClient({ headers }) {
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: "include",
-          Access-Control-Allow-Origin: 'https://hotel-next-prod.herokuapp.com'
+          credentials: "include"
         },
         headers
       });

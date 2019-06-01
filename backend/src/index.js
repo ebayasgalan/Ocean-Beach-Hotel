@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 require("dotenv").config({ path: "variables.env" });
 const createServer = require("./createServer");
 const db = require("./db");
@@ -7,6 +8,7 @@ const db = require("./db");
 const server = createServer();
 
 server.express.use(cookieParser());
+server.express.use(cors());
 
 // Express middleware to handle JSON WEB TOKEN
 server.express.use((req, res, next) => {
