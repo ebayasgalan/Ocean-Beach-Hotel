@@ -4,11 +4,12 @@ import { devEndpoint, prodEndpoint } from "../config";
 
 function createClient({ headers }) {
   return new ApolloClient({
-    uri: process.env.NODE_ENV === "development" ? devEndpoint : devEndpoint,
+    uri: process.env.NODE_ENV === "development" ? devEndpoint : prodEndpoint,
     request: operation => {
       operation.setContext({
         fetchOptions: {
-          credentials: "include"
+          credentials: "include",
+          Access-Control-Allow-Origin: 'https://hotel-next-prod.herokuapp.com'
         },
         headers
       });
