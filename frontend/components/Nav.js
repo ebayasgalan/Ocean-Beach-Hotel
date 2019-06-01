@@ -5,7 +5,7 @@ import Signout from "./Signout";
 
 const Nav = () => (
   <User>
-    {({ data }) => {
+    {({ data: { me } }) => {
       return (
         <NavStyles>
           <Link href="/">
@@ -17,7 +17,7 @@ const Nav = () => (
           <Link href="/contact">
             <a>Contact</a>
           </Link>
-          {/* {me && (
+          {me && (
             <>
               <Link href="/reservations">
                 <a>Reservations</a>
@@ -29,7 +29,7 @@ const Nav = () => (
             <Link href="/signup">
               <a>Signin</a>
             </Link>
-          )} */}
+          )}
         </NavStyles>
       );
     }}

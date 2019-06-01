@@ -3,12 +3,10 @@ const cookieParser = require("cookie-parser");
 require("dotenv").config({ path: "variables.env" });
 const createServer = require("./createServer");
 const db = require("./db");
-const cors = require("cors");
 
 const server = createServer();
 
 server.express.use(cookieParser());
-server.express.use(cors());
 
 // Express middleware to handle JSON WEB TOKEN
 server.express.use((req, res, next) => {
