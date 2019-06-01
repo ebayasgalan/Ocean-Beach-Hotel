@@ -33,10 +33,11 @@ server.express.use(async (req, res, next) => {
 
 server.start(
   {
-    cors: {
+    cors: ({
       credentials: true,
-      origin: process.env.FRONTEND_URL
-    }
+      origin: process.env.FRONTEND_URL,
+      Access-Control-Allow-Origin: process.env.FRONTEND_URL
+    })
   },
   deets => {
     console.log(`Server is running on port http:/localhost:${deets.port}`);
