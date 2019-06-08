@@ -1,7 +1,12 @@
-const Home = () => (
+const HomePage = () => (
   <div>
-    <h2>Home Page</h2>
+    <img
+      src="/static/hotel.jpg"
+      alt="hotel picture"
+      height="750px"
+      width="100%vh"
+    />
   </div>
 );
 
-export default Home;
+export default HomePage;
