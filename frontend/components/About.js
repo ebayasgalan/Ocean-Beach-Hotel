@@ -2,10 +2,14 @@ import styled from "styled-components";
 
 const StyledAbout = styled.div`
   font-size: 25px;
+  h3 {
+    text-align: center;
+  }
 `;
 
 const About = () => (
   <StyledAbout>
+    <h3>About Us</h3>
     <p>
       Our hotel is located right by the Pacific Ocean, close to attractions like
       Fisherman's Wharf, Pier 39, the Golden Gate Bridge, Union Square and the
