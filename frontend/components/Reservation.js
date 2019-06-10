@@ -15,7 +15,6 @@ const SINGLE_RESERVATION_QUERY = gql`
       checkIn
       checkOut
       createdAt
-      price
       user {
         id
         name
@@ -87,11 +86,6 @@ class Reservation extends Component {
                 <span>
                   {format(reservation.createdAt, "MMMM d, YYYY h:mm a")}
                 </span>
-              </p>
-
-              <p>
-                <span>Price per night</span>
-                <span>$ {reservation.price}</span>
               </p>
             </ReservationStyles>
           );
