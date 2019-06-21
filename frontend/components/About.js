@@ -5,6 +5,12 @@ const StyledAbout = styled.div`
   h3 {
     text-align: center;
   }
+  @media (max-width: 768px) {
+    p {
+      padding: 10px;
+    }
+    font-size: 18px;
+  }
 `;
 
 const About = () => (

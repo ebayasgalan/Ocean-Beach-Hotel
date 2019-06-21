@@ -1,7 +1,16 @@
 import About from "../components/About";
+import styled from "styled-components";
+
+const StyledHome = styled.div`
+  @media (max-width: 768px) {
+    img {
+      height: 400px;
+    }
+  }
+`;
 
 const HomePage = () => (
-  <div>
+  <StyledHome>
     <img
       src="/static/hotel.jpg"
       alt="hotel picture"
@@ -9,7 +18,7 @@ const HomePage = () => (
       width="100%vh"
     />
     <About />
-  </div>
+  </StyledHome>
 );
 
 export default HomePage;
