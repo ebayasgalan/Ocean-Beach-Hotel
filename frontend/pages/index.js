@@ -11,12 +11,7 @@ const StyledHome = styled.div`
 
 const HomePage = () => (
   <StyledHome>
-    <img
-      src="/static/hotel.jpg"
-      alt="hotel picture"
-      height="650px"
-      width="100%vh"
-    />
+    <img src="/static/hotel.jpg" alt="hotel" height="650px" width="100%vh" />
     <About />
   </StyledHome>
 );
