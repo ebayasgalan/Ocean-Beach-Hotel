@@ -1,5 +1,7 @@
 import About from "../components/About";
 import styled from "styled-components";
+import Contact from "../components/Contact";
+import Home from "../components/Home";
 
 const StyledHome = styled.div`
   @media (max-width: 768px) {
@@ -11,8 +13,9 @@ const StyledHome = styled.div`
 
 const HomePage = () => (
   <StyledHome>
-    <img src="/static/hotel.jpg" alt="hotel" height="650px" width="100%vh" />
+    <Home />
     <About />
+    <Contact />
   </StyledHome>
 );
 

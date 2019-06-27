@@ -15,7 +15,7 @@ const StyledAbout = styled.div`
 
 const About = () => (
   <StyledAbout>
-    <h3>About Us</h3>
+    <h3 className="about">About Us</h3>
     <p>
       Our hotel is located right by the Pacific Ocean, close to attractions like
       Fisherman's Wharf, Pier 39, the Golden Gate Bridge, Union Square and the
