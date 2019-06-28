@@ -1,6 +1,8 @@
+import Link from "next/link";
 import Signup from "../components/Signup";
 import styled from "styled-components";
 import Signin from "../components/Signin";
+import User from "../components/User";
 
 const Columns = styled.div`
   display: grid;
@@ -8,11 +10,34 @@ const Columns = styled.div`
   grid-gap: 20px;
 `;
 
+const StyledNav = styled.div`
+  text-align: center;
+  a {
+    align-content: center;
+    font-size: 24px;
+    :hover {
+      cursor: pointer;
+      color: white;
+    }
+  }
+`;
+
+const Nav = () => (
+  <StyledNav>
+    <Link href="/">
+      <a>Back to Home</a>
+    </Link>
+  </StyledNav>
+);
+
 const SignupPage = props => (
-  <Columns>
-    <Signin />
-    <Signup />
-  </Columns>
+  <>
+    <Nav />
+    <Columns>
+      <Signin />
+      <Signup />
+    </Columns>
+  </>
 );
 
 export default SignupPage;

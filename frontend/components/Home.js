@@ -1,5 +1,5 @@
 const Home = () => (
-  <div className="home">
+  <div>
     <img src="/static/hotel.jpg" alt="hotel" height="650px" width="100%vh" />
   </div>
 );

@@ -2,6 +2,7 @@ import About from "../components/About";
 import styled from "styled-components";
 import Contact from "../components/Contact";
 import Home from "../components/Home";
+import Nav from "../components/Nav";
 
 const StyledHome = styled.div`
   @media (max-width: 768px) {
@@ -13,6 +14,7 @@ const StyledHome = styled.div`
 
 const HomePage = () => (
   <StyledHome>
+    <Nav />
     <Home />
     <About />
     <Contact />

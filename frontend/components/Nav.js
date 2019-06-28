@@ -1,12 +1,13 @@
+import Router from "next/router";
 import { Link } from "react-scroll";
 import NavStyles from "./styles/NavStyles";
 import User from "./User";
 import Signout from "./Signout";
-import Contact from "./Contact";
 
 const Nav = () => (
   <User>
     {({ data: { me } }) => {
+      console.log("This is inside Nav: ", me);
       return (
         <NavStyles>
           <Link
@@ -48,9 +49,9 @@ const Nav = () => (
             </>
           )}
           {!me && (
-            <Link href="/signup">
-              <a>Signin</a>
-            </Link>
+            <div>
+              <a onClick={() => Router.push("/signup")}>Sign In</a>
+            </div>
           )}
         </NavStyles>
       );
