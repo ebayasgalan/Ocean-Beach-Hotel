@@ -43,7 +43,7 @@ const Nav = () => (
           {me && (
             <>
               <div>
-                <a onClick={() => Router.push("/reservations")}>Sign In</a>
+                <a onClick={() => Router.push("/reservations")}>Reservations</a>
               </div>
               <Signout />
             </>
