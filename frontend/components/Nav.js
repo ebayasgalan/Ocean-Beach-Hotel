@@ -42,9 +42,9 @@ const Nav = () => (
           </Link>
           {me && (
             <>
-              <Link href="/reservations">
-                <a>Reservations</a>
-              </Link>
+              <div>
+                <a onClick={() => Router.push("/reservations")}>Sign In</a>
+              </div>
               <Signout />
             </>
           )}
