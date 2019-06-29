@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Link } from "react-scroll";
 
 const StyledContact = styled.div`
   * {
@@ -9,6 +10,7 @@ const StyledContact = styled.div`
     text-align: center;
   }
   .topPart {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-gap: 20px;
@@ -17,6 +19,15 @@ const StyledContact = styled.div`
     text-align: center;
     p {
       font-size: 24px;
+    }
+  }
+  .scrollTop {
+    position: absolute;
+    top: 160px;
+    right: 1rem;
+    font-size: 20px;
+    a:hover {
+      color: white;
     }
   }
 `;
@@ -38,10 +49,21 @@ const Contact = () => {
           <h2>Phone:</h2>
           <p>(999)999-9999</p>
         </span>
-
         <span className="email">
           <h2>Email:</h2>
           <p>reservations@oceanhotel.com</p>
+        </span>
+        <span className="scrollTop">
+          <Link
+            style={{ cursor: "pointer" }}
+            activeClass="active"
+            to="home"
+            spy={true}
+            smooth={true}
+            duration={500}
+          >
+            back to top ⇧
+          </Link>
         </span>
       </div>
     </StyledContact>
