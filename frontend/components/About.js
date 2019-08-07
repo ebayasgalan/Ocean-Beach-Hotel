@@ -1,14 +1,19 @@
 import styled from "styled-components";
 
 const StyledAbout = styled.div`
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
   font-size: 25px;
+  p {
+    padding: 2rem;
+  }
   h3 {
     text-align: center;
   }
   @media (max-width: 768px) {
-    p {
-      padding: 10px;
-    }
     font-size: 18px;
   }
 `;
