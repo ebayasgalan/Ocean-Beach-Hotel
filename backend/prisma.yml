@@ -1,5 +1,5 @@
-#endpoint: ${env:PRISMA_ENDPOINT}
-endpoint: https://ocean-beach-hotel-9a593a164c.herokuapp.com/hotel-app-prod/prod
+endpoint: ${env:PRISMA_ENDPOINT}
+# endpoint: https://ocean-beach-hotel-9a593a164c.herokuapp.com/hotel-app-prod/prod
 datamodel: datamodel.prisma
 secret: ${env:PRISMA_SECRET}
 hooks:

@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
@@ -26,12 +28,18 @@ const RESERVE_MUTATION = gql`
 
 class MakeReservation extends Component {
   state = {
-    checkIn: "",
-    checkOut: "",
+    checkIn: new Date(),
+    checkOut: new Date(),
     roomType: "Deluxe Full"
   };
   saveToState = e => {
     this.setState({ [e.target.name]: e.target.value });
+  };
+  saveToCheckin = date => {
+    this.setState({ checkIn: date });
+  };
+  saveToCheckout = date => {
+    this.setState({ checkOut: date });
   };
   render() {
     return (
@@ -48,8 +56,8 @@ class MakeReservation extends Component {
                 e.preventDefault();
                 await createReservation();
                 this.setState({
-                  checkIn: "",
-                  checkOut: "",
+                  checkIn: new Date(),
+                  checkOut: new Date(),
                   roomType: "Deluxe Full"
                 });
               }}
@@ -59,20 +67,16 @@ class MakeReservation extends Component {
                 <Error error={error} />
                 <label htmlFor="checkIn">
                   Check In
-                  <input
-                    type="date"
-                    name="checkIn"
-                    value={this.state.checkIn}
-                    onChange={this.saveToState}
+                  <DatePicker
+                    selected={this.state.checkIn}
+                    onChange={this.saveToCheckin}
                   />
                 </label>
                 <label htmlFor="checkOut">
                   Check Out
-                  <input
-                    type="date"
-                    name="checkOut"
-                    value={this.state.checkOut}
-                    onChange={this.saveToState}
+                  <DatePicker
+                    selected={this.state.checkOut}
+                    onChange={this.saveToCheckout}
                   />
                 </label>
                 <label htmlFor="roomType">
