@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Router from "next/router";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
@@ -43,6 +44,9 @@ class Signup extends Component {
                 e.preventDefault();
                 await signup();
                 this.setState({ name: "", email: "", password: "" });
+                if (!error) {
+                  Router.push("/index");
+                }
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
@@ -61,7 +65,7 @@ class Signup extends Component {
                 <label htmlFor="email">
                   email
                   <input
-                    type="text"
+                    type="email"
                     name="email"
                     placeholder="email"
                     value={this.state.email}
@@ -71,7 +75,7 @@ class Signup extends Component {
                 <label htmlFor="password">
                   password
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="password"
                     value={this.state.password}

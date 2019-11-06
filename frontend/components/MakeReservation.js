@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
+import Router from "next/router";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
@@ -52,6 +53,9 @@ class MakeReservation extends Component {
                   checkOut: "",
                   roomType: "Deluxe Full"
                 });
+                if (!error) {
+                  Router.push("/index");
+                }
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Mutation } from "react-apollo";
 import gql from "graphql-tag";
+import Router from "next/router";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
@@ -17,7 +18,6 @@ const SIGNIN_MUTATION = gql`
 
 class Signin extends Component {
   state = {
-    name: "",
     email: "",
     password: ""
   };
@@ -39,6 +39,9 @@ class Signin extends Component {
                 e.preventDefault();
                 await signin();
                 this.setState({ name: "", email: "", password: "" });
+                if (!error) {
+                  Router.push("/index");
+                }
               }}
             >
               <fieldset disabled={loading} aria-busy={loading}>
@@ -47,7 +50,7 @@ class Signin extends Component {
                 <label htmlFor="email">
                   email
                   <input
-                    type="text"
+                    type="email"
                     name="email"
                     placeholder="email"
                     value={this.state.email}
@@ -57,7 +60,7 @@ class Signin extends Component {
                 <label htmlFor="password">
                   password
                   <input
-                    type="text"
+                    type="password"
                     name="password"
                     placeholder="password"
                     value={this.state.password}
