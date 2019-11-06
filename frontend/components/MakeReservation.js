@@ -5,6 +5,7 @@ import Router from "next/router";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
+import { ALL_RESERVATIONS_QUERY } from "./Reservations";
 
 const RESERVE_MUTATION = gql`
   mutation RESERVE_MUTATION(
@@ -39,7 +40,9 @@ class MakeReservation extends Component {
       <Mutation
         mutation={RESERVE_MUTATION}
         variables={this.state}
-        refetchQueries={[{ query: CURRENT_USER_QUERY }]}
+        refetchQueries={[
+          { query: CURRENT_USER_QUERY, query: ALL_RESERVATIONS_QUERY }
+        ]}
       >
         {(createReservation, { error, loading }) => {
           return (
@@ -54,7 +57,9 @@ class MakeReservation extends Component {
                   roomType: "Deluxe Full"
                 });
                 if (!error) {
-                  Router.push("/index");
+                  Router.push({
+                    pathname: "/reservations"
+                  });
                 }
               }}
             >

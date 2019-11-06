@@ -25,7 +25,6 @@ const ReservationsList = props => {
         }}
       >
         <a>
-          <p>Confirmation Number: {props.reservation.id}</p>
           <p>
             Arrival Date: {format(props.reservation.checkIn, "MMMM d, YYYY")}
           </p>
