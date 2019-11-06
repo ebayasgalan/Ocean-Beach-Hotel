@@ -58,7 +58,7 @@ class MakeReservation extends Component {
                 });
                 if (!error) {
                   Router.push({
-                    pathname: "/reservations"
+                    pathname: "/index"
                   });
                 }
               }}

@@ -7,7 +7,6 @@ import Signout from "./Signout";
 const Nav = () => (
   <User>
     {({ data: { me } }) => {
-      console.log("This is inside Nav: ", me);
       return (
         <NavStyles>
           <Link
