@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { Mutation } from "react-apollo";
 import Router from "next/router";
+import styled from "styled-components";
 import Form from "./styles/Form";
 import Error from "./ErrorMessage";
 import { CURRENT_USER_QUERY } from "./User";
@@ -26,6 +27,10 @@ const RESERVE_MUTATION = gql`
   }
 `;
 
+const StyledPage = styled.div`
+  height: 100vh;
+`;
+
 class MakeReservation extends Component {
   state = {
     checkIn: "",
@@ -37,68 +42,70 @@ class MakeReservation extends Component {
   };
   render() {
     return (
-      <Mutation
-        mutation={RESERVE_MUTATION}
-        variables={this.state}
-        refetchQueries={[
-          { query: CURRENT_USER_QUERY, query: ALL_RESERVATIONS_QUERY }
-        ]}
-      >
-        {(createReservation, { error, loading }) => {
-          return (
-            <Form
-              method="post"
-              onSubmit={async e => {
-                e.preventDefault();
-                await createReservation();
-                this.setState({
-                  checkIn: "",
-                  checkOut: "",
-                  roomType: "Deluxe Full"
-                });
-                if (!error) {
-                  Router.push({
-                    pathname: "/index"
+      <StyledPage>
+        <Mutation
+          mutation={RESERVE_MUTATION}
+          variables={this.state}
+          refetchQueries={[
+            { query: CURRENT_USER_QUERY, query: ALL_RESERVATIONS_QUERY }
+          ]}
+        >
+          {(createReservation, { error, loading }) => {
+            return (
+              <Form
+                method="post"
+                onSubmit={async e => {
+                  e.preventDefault();
+                  await createReservation();
+                  this.setState({
+                    checkIn: "",
+                    checkOut: "",
+                    roomType: "Deluxe Full"
                   });
-                }
-              }}
-            >
-              <fieldset disabled={loading} aria-busy={loading}>
-                <h2>Make a Reservation</h2>
-                <Error error={error} />
-                <label htmlFor="checkIn">
-                  Check In
-                  <input
-                    type="date"
-                    name="checkIn"
-                    value={this.state.checkIn}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label htmlFor="checkOut">
-                  Check Out
-                  <input
-                    type="date"
-                    name="checkOut"
-                    value={this.state.checkOut}
-                    onChange={this.saveToState}
-                  />
-                </label>
-                <label htmlFor="roomType">
-                  Room Type
-                  <select name="roomType" onChange={this.saveToState}>
-                    <option value="Deluxe Full">Deluxe Full</option>
-                    <option value="Deluxe Queen">Deluxe Queen</option>
-                    <option value="Deluxe Twin">Deluxe Twin</option>
-                    <option value="Suite">Suite</option>
-                  </select>
-                </label>
-                <button type="submit">Reserve</button>
-              </fieldset>
-            </Form>
-          );
-        }}
-      </Mutation>
+                  if (!error) {
+                    Router.push({
+                      pathname: "/index"
+                    });
+                  }
+                }}
+              >
+                <fieldset disabled={loading} aria-busy={loading}>
+                  <h2>Make a Reservation</h2>
+                  <Error error={error} />
+                  <label htmlFor="checkIn">
+                    Check In
+                    <input
+                      type="date"
+                      name="checkIn"
+                      value={this.state.checkIn}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label htmlFor="checkOut">
+                    Check Out
+                    <input
+                      type="date"
+                      name="checkOut"
+                      value={this.state.checkOut}
+                      onChange={this.saveToState}
+                    />
+                  </label>
+                  <label htmlFor="roomType">
+                    Room Type
+                    <select name="roomType" onChange={this.saveToState}>
+                      <option value="Deluxe Full">Deluxe Full</option>
+                      <option value="Deluxe Queen">Deluxe Queen</option>
+                      <option value="Deluxe Twin">Deluxe Twin</option>
+                      <option value="Suite">Suite</option>
+                    </select>
+                  </label>
+                  <button type="submit">Reserve</button>
+                </fieldset>
+              </Form>
+            );
+          }}
+        </Mutation>
+      </StyledPage>
     );
   }
 }

@@ -4,9 +4,9 @@ import Header from "./Header";
 import Meta from "./Meta";
 
 const theme = {
-  primary: "#b867c6",
-  light: "#ec97f9",
-  dark: "#863895",
+  primary: "#D7EBF1",
+  light: "#9CCFDE",
+  dark: "#297A91",
   textColor: "#393939",
   maxWidth: "1000px",
   bs: "0 10px 22px 0 rgba(0, 0, 0, 0.09)"
