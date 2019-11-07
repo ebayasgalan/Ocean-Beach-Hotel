@@ -2,12 +2,15 @@ import Link from "next/link";
 import Signup from "../components/Signup";
 import styled from "styled-components";
 import Signin from "../components/Signin";
-import User from "../components/User";
+
+const StyledPage = styled.div`
+  height: 100vh;
+`;
 
 const Columns = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  grid-gap: 20px;
+  grid-gap: 10px;
 `;
 
 const StyledNav = styled.div`
@@ -31,13 +34,13 @@ const Nav = () => (
 );
 
 const SignupPage = props => (
-  <>
+  <StyledPage>
     <Nav />
     <Columns>
       <Signin />
       <Signup />
     </Columns>
-  </>
+  </StyledPage>
 );
 
 export default SignupPage;

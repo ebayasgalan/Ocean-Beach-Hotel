@@ -16,6 +16,10 @@ const ALL_RESERVATIONS_QUERY = gql`
   }
 `;
 
+const StyledPage = styled.div`
+  height: 100vh;
+`;
+
 const StyledList = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -34,7 +38,7 @@ const StyledButton = styled.div`
 
 function Reservations() {
   return (
-    <>
+    <StyledPage>
       <Query query={ALL_RESERVATIONS_QUERY}>
         {({ data, error, loading }) => {
           if (loading) return <p>Loading...</p>;
@@ -62,7 +66,7 @@ function Reservations() {
           );
         }}
       </Query>
-    </>
+    </StyledPage>
   );
 }
 

@@ -19,7 +19,7 @@ const HomePage = () => (
     <Home />
     <About />
     <Contact />
-    <Footer />
+    {/* <Footer /> */}
   </StyledHome>
 );
 
