@@ -24,12 +24,12 @@ const SINGLE_RESERVATION_QUERY = gql`
 `;
 
 const ReservationStyles = styled.div`
-  max-width: 1000px;
+  height: 100vh;
   margin: 0 auto;
   border: 1px solid ${props => props.theme.light};
   box-shadow: ${props => props.theme.bs};
   padding: 2rem;
-  border-top: 10px solid purple;
+  border-top: 10px solid #297a91;
   & > p {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -45,6 +45,10 @@ class Reservation extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired
   };
+
+  cancelHandler(id) {
+    console.log("cancel Handler id is: ", id);
+  }
 
   render() {
     return (
@@ -65,8 +69,8 @@ class Reservation extends Component {
                 <span>{reservation.user.name}</span>
               </p>
               <p>
-                <span>Confirmation #:</span>
-                <span>{this.props.id}</span>
+                <span>Confirmation number:</span>
+                <span>{reservation.id}</span>
               </p>
 
               <p>
@@ -87,6 +91,9 @@ class Reservation extends Component {
                   {format(reservation.createdAt, "MMMM d, YYYY h:mm a")}
                 </span>
               </p>
+              <button onClick={() => this.cancelHandler(reservation.id)}>
+                Cancel This Reservation
+              </button>
             </ReservationStyles>
           );
         }}

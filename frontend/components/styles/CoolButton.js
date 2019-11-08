@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 const CoolButton = styled.button`
   width: auto;
-  background: purple;
+  background: #297a91;
   border: 0;
   border-radius: 10px;
   font-size: 2rem;
