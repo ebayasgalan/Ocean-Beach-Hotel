@@ -1,11 +1,11 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import { Query } from "react-apollo";
-import { format } from "date-fns";
-import styled from "styled-components";
-import Head from "next/head";
-import gql from "graphql-tag";
-import Error from "./ErrorMessage";
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Query } from 'react-apollo';
+import { format } from 'date-fns';
+import styled from 'styled-components';
+import Head from 'next/head';
+import gql from 'graphql-tag';
+import Error from './ErrorMessage';
 
 const SINGLE_RESERVATION_QUERY = gql`
   query SINGLE_RESERVATION_QUERY($id: ID!) {
@@ -47,7 +47,7 @@ class Reservation extends Component {
   };
 
   cancelHandler(id) {
-    console.log("cancel Handler id is: ", id);
+    console.log('cancel Handler id is: ', id);
   }
 
   render() {
@@ -75,11 +75,11 @@ class Reservation extends Component {
 
               <p>
                 <span>Arrival:</span>
-                <span>{format(reservation.checkIn, "MMMM d, YYYY")}</span>
+                <span>{format(reservation.checkIn, 'MMMM DD, YYYY')}</span>
               </p>
               <p>
                 <span>Departure:</span>
-                <span>{format(reservation.checkOut, "MMMM d, YYYY")}</span>
+                <span>{format(reservation.checkOut, 'MMMM DD, YYYY')}</span>
               </p>
               <p>
                 <span>Room Type:</span>
@@ -88,7 +88,7 @@ class Reservation extends Component {
               <p>
                 <span>Reserved on: </span>
                 <span>
-                  {format(reservation.createdAt, "MMMM d, YYYY h:mm a")}
+                  {format(reservation.createdAt, 'MMMM DD, YYYY h:mm a')}
                 </span>
               </p>
               <button onClick={() => this.cancelHandler(reservation.id)}>

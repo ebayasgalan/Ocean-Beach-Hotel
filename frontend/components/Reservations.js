@@ -1,9 +1,9 @@
-import gql from "graphql-tag";
-import { Query } from "react-apollo";
-import Link from "next/link";
-import styled from "styled-components";
-import ReservationList from "./ReservationList";
-import Button from "../components/styles/CoolButton";
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
+import Link from 'next/link';
+import styled from 'styled-components';
+import ReservationList from './ReservationList';
+import Button from '../components/styles/CoolButton';
 
 const ALL_RESERVATIONS_QUERY = gql`
   query ALL_RESERVATIONS_QUERY {
@@ -46,7 +46,7 @@ function Reservations() {
           const reservations = data.reservations;
           return (
             <>
-              <h1 style={{ textAlign: "center" }}>Reservations</h1>
+              <h1 style={{ textAlign: 'center' }}>Reservations</h1>
               <StyledList>
                 {reservations.map(reservation => (
                   <ReservationList
@@ -57,7 +57,7 @@ function Reservations() {
               </StyledList>
               <StyledButton>
                 <Button>
-                  <Link href="/new_reservation">
+                  <Link href='/new_reservation'>
                     <a>New Reservation</a>
                   </Link>
                 </Button>

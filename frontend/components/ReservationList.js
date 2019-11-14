@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import { format } from "date-fns";
-import Link from "next/link";
+import styled from 'styled-components';
+import { format } from 'date-fns';
+import Link from 'next/link';
 
 const StyledList = styled.div`
   width: 350px;
@@ -20,16 +20,17 @@ const ReservationsList = props => {
     <StyledList>
       <Link
         href={{
-          pathname: "/reservation",
+          pathname: '/reservation',
           query: { id: props.reservation.id }
         }}
       >
         <a>
           <p>
-            Arrival Date: {format(props.reservation.checkIn, "MMMM d, YYYY")}
+            Arrival Date: {format(props.reservation.checkIn, 'MMMM DD, YYYY')}
           </p>
           <p>
-            Departure Date: {format(props.reservation.checkOut, "MMMM d, YYYY")}
+            Departure Date:{' '}
+            {format(props.reservation.checkOut, 'MMMM DD, YYYY')}
           </p>
         </a>
       </Link>
