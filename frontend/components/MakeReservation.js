@@ -3,10 +3,11 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import styled from 'styled-components';
-import Datepicker from 'react-datepicker';
 
-// import 'react-datepicker/dist/react-datepicker.css';
+// import DatePicker from 'react-datepicker';
+// import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 
+// import 'react-widgets/dist/css/react-widgets.css';
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
 import Form from './styles/Form';
@@ -87,17 +88,26 @@ class MakeReservation extends Component {
                   <label htmlFor='checkIn'>
                     Check In
                     <br />
-                    <Datepicker
-                      selected={this.state.checkIn}
-                      onChange={this.saveCheckinDate}
+                    <input
+                      type='date'
+                      name='checkOut'
+                      value={this.state.checkOut}
+                      onChange={e => this.saveToState(e)}
                     />
+                    {/* <Datepicker
+                      selected={this.state.checkIn}
+                      value={this.state.checkIn}
+                      onChange={this.saveCheckinDate}
+                    /> */}
                   </label>
                   <label htmlFor='checkOut'>
                     Check Out
                     <br />
-                    <Datepicker
-                      selected={this.state.checkOut}
-                      onChange={this.saveCheckoutDate}
+                    <input
+                      type='date'
+                      name='checkIn'
+                      value={this.state.checkIn}
+                      onChange={e => this.saveToState(e)}
                     />
                   </label>
                   <label htmlFor='roomType'>
