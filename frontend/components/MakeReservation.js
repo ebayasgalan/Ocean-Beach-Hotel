@@ -3,12 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import styled from 'styled-components';
-
-// import DatePicker from 'react-datepicker';
-// import DateTimePicker from 'react-widgets/lib/DateTimePicker';
-
-// import 'react-widgets/dist/css/react-widgets.css';
-// import 'react-datepicker/dist/react-datepicker-cssmodules.css';
+import { format } from 'date-fns';
 
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -36,6 +31,16 @@ const RESERVE_MUTATION = gql`
 
 const StyledPage = styled.div`
   height: 100vh;
+  .form {
+    display: flex;
+
+    .classOne {
+      flex: 1;
+    }
+    .middleOne {
+      flex-basis: 50rem;
+    }
+  }
 `;
 
 class MakeReservation extends Component {
@@ -45,14 +50,9 @@ class MakeReservation extends Component {
     roomType: 'Deluxe Full'
   };
   saveToState = e => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: format(e.target.value, 'YYYY-MM-DD') });
   };
-  saveCheckinDate = date => {
-    this.setState({ checkIn: date });
-  };
-  saveCheckoutDate = date => {
-    this.setState({ checkOut: date });
-  };
+
   render() {
     return (
       <StyledPage>
@@ -65,63 +65,67 @@ class MakeReservation extends Component {
         >
           {(createReservation, { error, loading }) => {
             return (
-              <Form
-                method='post'
-                onSubmit={async e => {
-                  e.preventDefault();
-                  await createReservation();
-                  this.setState({
-                    checkIn: '',
-                    checkOut: '',
-                    roomType: 'Deluxe Full'
-                  });
-                  if (!error) {
-                    Router.push({
-                      pathname: '/index'
-                    });
-                  }
-                }}
-              >
-                <fieldset disabled={loading} aria-busy={loading}>
-                  <h2>Make a Reservation</h2>
-                  <Error error={error} />
-                  <label htmlFor='checkIn'>
-                    Check In
-                    <br />
-                    <input
-                      type='date'
-                      name='checkOut'
-                      value={this.state.checkOut}
-                      onChange={e => this.saveToState(e)}
-                    />
-                    {/* <Datepicker
-                      selected={this.state.checkIn}
-                      value={this.state.checkIn}
-                      onChange={this.saveCheckinDate}
-                    /> */}
-                  </label>
-                  <label htmlFor='checkOut'>
-                    Check Out
-                    <br />
-                    <input
-                      type='date'
-                      name='checkIn'
-                      value={this.state.checkIn}
-                      onChange={e => this.saveToState(e)}
-                    />
-                  </label>
-                  <label htmlFor='roomType'>
-                    Room Type
-                    <select name='roomType' onChange={this.saveToState}>
-                      <option value='Deluxe Full'>Deluxe Full</option>
-                      <option value='Deluxe Queen'>Deluxe Queen</option>
-                      <option value='Deluxe Twin'>Deluxe Twin</option>
-                      <option value='Suite'>Suite</option>
-                    </select>
-                  </label>
-                  <button type='submit'>Reserve</button>
-                </fieldset>
-              </Form>
+              <div className='form'>
+                <div className='classOne' />
+                <div className='middleOne'>
+                  <Form
+                    method='post'
+                    onSubmit={async e => {
+                      e.preventDefault();
+                      await createReservation();
+                      this.setState({
+                        checkIn: '',
+                        checkOut: '',
+                        roomType: 'Deluxe Full'
+                      });
+                      if (!error) {
+                        Router.push({
+                          pathname: '/index'
+                        });
+                      }
+                    }}
+                  >
+                    <fieldset disabled={loading} aria-busy={loading}>
+                      <h2>Book a reservation</h2>
+                      <Error error={error} />
+                      <label htmlFor='checkIn'>
+                        Check In
+                        <br />
+                        <input
+                          type='date'
+                          name='checkIn'
+                          value={this.state.checkIn}
+                          onChange={e => this.saveToState(e)}
+                        />
+                      </label>
+                      <label htmlFor='checkOut'>
+                        Check Out
+                        <br />
+                        <input
+                          type='date'
+                          name='checkOut'
+                          value={this.state.checkOut}
+                          onChange={e => this.saveToState(e)}
+                        />
+                      </label>
+                      <label htmlFor='roomType'>
+                        Room Type
+                        <select
+                          name='roomType'
+                          onChange={e => this.saveToState(e)}
+                        >
+                          <option value='Deluxe Full'>Deluxe Full</option>
+                          <option value='Deluxe Queen'>Deluxe Queen</option>
+                          <option value='Deluxe Twin'>Deluxe Twin</option>
+                          <option value='Suite'>Suite</option>
+                        </select>
+                      </label>
+                      <button type='submit'>Reserve</button>
+                    </fieldset>
+                  </Form>
+                </div>
+                <div className='classOne' />
+              </div>
             );
           }}
         </Mutation>

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { format } from 'date-fns';
+import { format, addDays, parse } from 'date-fns';
 import Link from 'next/link';
 
 const StyledList = styled.div`
@@ -25,13 +25,8 @@ const ReservationsList = props => {
         }}
       >
         <a>
-          <p>
-            Arrival Date: {format(props.reservation.checkIn, 'MMMM DD, YYYY')}
-          </p>
-          <p>
-            Departure Date:{' '}
-            {format(props.reservation.checkOut, 'MMMM DD, YYYY')}
-          </p>
+          <p>Arrival Date: {props.reservation.checkIn}</p>
+          <p>Departure Date: {props.reservation.checkOut}</p>
         </a>
       </Link>
     </StyledList>
