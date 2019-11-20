@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
-import { format } from 'date-fns';
 import Link from 'next/link';
 import styled from 'styled-components';
 import Head from 'next/head';
@@ -88,11 +87,11 @@ class Reservation extends Component {
 
               <p>
                 <span>Arrival:</span>
-                <span>{format(reservation.checkIn, 'MMMM DD, YYYY')}</span>
+                {reservation.checkIn.slice(0, 10)}
               </p>
               <p>
                 <span>Departure:</span>
-                <span>{format(reservation.checkOut, 'MMMM DD, YYYY')}</span>
+                {reservation.checkOut.slice(0, 10)}
               </p>
               <p>
                 <span>Room Type:</span>
@@ -100,12 +99,10 @@ class Reservation extends Component {
               </p>
               <p>
                 <span>Reserved on: </span>
-                <span>
-                  {format(reservation.createdAt, 'MMMM DD, YYYY h:mm a')}
-                </span>
+                <span>{reservation.createdAt.slice(0, 10)}</span>
               </p>
               <div className='buttonList'>
-                <div className='items'>
+                <div>
                   {/* <Link
                     href={{
                       pathname: '/update',
@@ -115,7 +112,7 @@ class Reservation extends Component {
                     <a>Edit ✏️</a>
                   </Link> */}
                 </div>
-                <div className='items'>
+                <div>
                   <DeleteReservation id={reservation.id}>
                     Cancel
                   </DeleteReservation>

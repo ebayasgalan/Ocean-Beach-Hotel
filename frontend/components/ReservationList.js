@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import { format, addDays, parse } from 'date-fns';
 import Link from 'next/link';
 
 const StyledList = styled.div`
-  width: 350px;
-  height: 150px;
+  width: 35rem;
+  height: 10rem;
   background: ${props => props.theme.light};
   border: 2px black solid;
   text-align: center;
@@ -16,6 +15,8 @@ const StyledList = styled.div`
 `;
 
 const ReservationsList = props => {
+  const checkIn = props.reservation.checkIn.slice(0, 10);
+  const checkOut = props.reservation.checkOut.slice(0, 10);
   return (
     <StyledList>
       <Link
@@ -25,8 +26,8 @@ const ReservationsList = props => {
         }}
       >
         <a>
-          <p>Arrival Date: {props.reservation.checkIn}</p>
-          <p>Departure Date: {props.reservation.checkOut}</p>
+          <p>Arrival Date: {checkIn} </p>
+          <p>Departure Date: {checkOut}</p>
         </a>
       </Link>
     </StyledList>

@@ -3,7 +3,6 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import styled from 'styled-components';
-// import { format } from 'date-fns';
 
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -80,7 +79,7 @@ class MakeReservation extends Component {
                       });
                       if (!error) {
                         Router.push({
-                          pathname: '/index'
+                          pathname: '/reservations'
                         });
                       }
                     }}

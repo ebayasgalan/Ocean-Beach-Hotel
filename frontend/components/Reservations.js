@@ -41,7 +41,7 @@ function Reservations() {
     <StyledPage>
       <Query query={ALL_RESERVATIONS_QUERY}>
         {({ data, error, loading }) => {
-          if (loading) return <p>Loading...</p>;
+          if (loading) return <p>LOADING...</p>;
           if (error) return <p>Error: {error.message}</p>;
           const reservations = data.reservations;
           return (

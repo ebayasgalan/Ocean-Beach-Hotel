@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 import { ALL_RESERVATIONS_QUERY } from './Reservations';
 
 const DELETE_RESERVATION_MUTATION = gql`
@@ -32,13 +33,22 @@ class DeleteReservation extends Component {
         }}
         update={this.update}
       >
-        {(deleteReservation, { error }) => (
+        {(deleteReservation, { loading, error }) => (
           <button
             onClick={() => {
               if (confirm('Are you sure to cancel this reservation?')) {
-                deleteReservation().catch(err => {
-                  alert(err.message);
-                });
+                deleteReservation()
+                  .then(() => {
+                    if (loading) {
+                      return <p>Loading...</p>;
+                    }
+                    Router.push({
+                      pathname: '/reservations'
+                    });
+                  })
+                  .catch(err => {
+                    alert(err.message);
+                  });
               }
             }}
           >
