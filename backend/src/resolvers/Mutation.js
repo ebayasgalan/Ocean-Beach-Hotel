@@ -1,8 +1,8 @@
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const { randomBytes } = require("crypto");
-const { promisify } = require("util");
-const { transport, makeANiceEmail } = require("../mail");
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const { randomBytes } = require('crypto');
+const { promisify } = require('util');
+const { transport, makeANiceEmail } = require('../mail');
 
 const Mutations = {
   async createReservation(parent, args, ctx, info) {
@@ -40,17 +40,17 @@ const Mutations = {
   async deleteReservation(parent, args, ctx, info) {
     const where = { id: args.id };
     // find the item
-    const item = await ctx.db.query.reservation(
+    const reservation = await ctx.db.query.reservation(
       { where },
-      `{id title user {id}}`
+      `{id user {id}}`
     );
     // check if they own that item or have permission
-    const ownsItem = item.user.id === ctx.request.userId;
-    if (!ownsItem) {
+    const ownsReservation = reservation.user.id === ctx.request.userId;
+    if (!ownsReservation) {
       throw new Error("Sorry, it's not your reservation");
     }
     // delete it
-    return ctx.db.mutation.deleteItem({ where }, info);
+    return ctx.db.mutation.deleteReservation({ where }, info);
   },
   async signup(parent, args, ctx, info) {
     args.email = args.email.toLowerCase();
@@ -63,7 +63,7 @@ const Mutations = {
     );
     // create the JWT token
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
-    ctx.response.cookie("token", token, {
+    ctx.response.cookie('token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
@@ -78,12 +78,12 @@ const Mutations = {
     // check if the password is correct
     const valid = await bcrypt.compare(password, user.password);
     if (!valid) {
-      throw new Error("Invalid Password");
+      throw new Error('Invalid Password');
     }
     // generate JWT token
     const token = jwt.sign({ userId: user.id }, process.env.APP_SECRET);
     // set the cookie with the token
-    ctx.response.cookie("token", token, {
+    ctx.response.cookie('token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });
@@ -91,8 +91,8 @@ const Mutations = {
     return user;
   },
   signout(parent, args, ctx, info) {
-    ctx.response.clearCookie("token");
-    return { message: "Goodbye" };
+    ctx.response.clearCookie('token');
+    return { message: 'Goodbye' };
   },
   async requestReset(parent, args, ctx, info) {
     // check if this is a real user
@@ -102,7 +102,7 @@ const Mutations = {
     }
     // set a reset token and expiry on that user
     const randomBytesPromisified = promisify(randomBytes);
-    const resetToken = (await randomBytesPromisified(20)).toString("hex");
+    const resetToken = (await randomBytesPromisified(20)).toString('hex');
     const resetTokenExpiry = Date.now() + 3600000; //1 hour from now
     const res = await ctx.db.mutation.updateUser({
       where: { email: args.email },
@@ -110,16 +110,16 @@ const Mutations = {
     });
     // email them the reset token
     const mailRes = await transport.sendMail({
-      from: "ewiz1020@gmail.com",
+      from: 'ewiz1020@gmail.com',
       to: user.email,
-      subject: "Your Password Reset Token",
+      subject: 'Your Password Reset Token',
       html: makeANiceEmail(`Your Password Reset Token is here \n\n
       <a href="${process.env.FRONTEND_URL}/reset?resetToken=${resetToken}">
       Click Here to Reset</a>`)
     });
 
     // return the message
-    return { message: "Thank you" };
+    return { message: 'Thank you' };
   },
   async resetPassword(parent, args, ctx, info) {
     // check if the passwords match
@@ -135,7 +135,7 @@ const Mutations = {
       }
     });
     if (!user) {
-      throw new Error("this token is expired or invalid");
+      throw new Error('this token is expired or invalid');
     }
     // hash their new password
     const password = await bcrypt.hash(args.password, 10);
@@ -151,7 +151,7 @@ const Mutations = {
     // generate JWT
     const token = jwt.sign({ userId: updatedUser.id }, process.env.APP_SECRET);
     // set the JWT cookie
-    ctx.response.cookie("token", token, {
+    ctx.response.cookie('token', token, {
       httpOnly: true,
       maxAge: 1000 * 60 * 60 * 24 * 365
     });

@@ -3,7 +3,7 @@ import gql from 'graphql-tag';
 import { Mutation } from 'react-apollo';
 import Router from 'next/router';
 import styled from 'styled-components';
-import { format } from 'date-fns';
+// import { format } from 'date-fns';
 
 import Form from './styles/Form';
 import Error from './ErrorMessage';
@@ -50,7 +50,7 @@ class MakeReservation extends Component {
     roomType: 'Deluxe Full'
   };
   saveToState = e => {
-    this.setState({ [e.target.name]: format(e.target.value, 'YYYY-MM-DD') });
+    this.setState({ [e.target.name]: e.target.value });
   };
 
   render() {

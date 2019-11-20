@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Query } from 'react-apollo';
 import { format } from 'date-fns';
+import Link from 'next/link';
 import styled from 'styled-components';
 import Head from 'next/head';
 import gql from 'graphql-tag';
 import Error from './ErrorMessage';
+import DeleteReservation from './DeleteReservation';
 
 const SINGLE_RESERVATION_QUERY = gql`
   query SINGLE_RESERVATION_QUERY($id: ID!) {
@@ -39,16 +41,27 @@ const ReservationStyles = styled.div`
       padding: 1rem;
     }
   }
+  .buttonList {
+    button,
+    a {
+      :hover {
+        background: ${props => props.theme.light};
+        color: black;
+      }
+      background: #297a91;
+      color: white;
+      border: 0;
+      font-size: 1.8rem;
+      font-weight: 600;
+      padding: 0.5rem 1rem;
+    }
+  }
 `;
 
 class Reservation extends Component {
   static propTypes = {
     id: PropTypes.string.isRequired
   };
-
-  cancelHandler(id) {
-    console.log('cancel Handler id is: ', id);
-  }
 
   render() {
     return (
@@ -91,9 +104,23 @@ class Reservation extends Component {
                   {format(reservation.createdAt, 'MMMM DD, YYYY h:mm a')}
                 </span>
               </p>
-              <button onClick={() => this.cancelHandler(reservation.id)}>
-                Cancel This Reservation
-              </button>
+              <div className='buttonList'>
+                <div className='items'>
+                  <Link
+                    href={{
+                      pathname: '/update',
+                      query: { id: reservation.id }
+                    }}
+                  >
+                    <a>Edit ✏️</a>
+                  </Link>
+                </div>
+                <div className='items'>
+                  <DeleteReservation id={reservation.id}>
+                    Cancel ❌
+                  </DeleteReservation>
+                </div>
+              </div>
             </ReservationStyles>
           );
         }}
