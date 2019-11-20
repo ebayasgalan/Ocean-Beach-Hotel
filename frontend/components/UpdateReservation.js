@@ -14,7 +14,6 @@ const SINGLE_RESERVATION_QUERY = gql`
       roomType
       checkIn
       checkOut
-      createdAt
       user {
         id
         name
@@ -85,8 +84,7 @@ class UpdateReservation extends Component {
       >
         {({ data, loading }) => {
           if (loading) return <p>Loading...</p>;
-          if (!data.reservation)
-            return <p>No Reservation Found for ID {this.props.id}</p>;
+          if (!data) return <p>No Reservation Found for ID {this.props.id}</p>;
           return (
             <StyledPage>
               <Mutation
@@ -99,7 +97,6 @@ class UpdateReservation extends Component {
                       <div className='classOne' />
                       <div className='middleOne'>
                         <Form
-                          data-test='form'
                           method='post'
                           onSubmit={e => {
                             this.updateReservation(e, updateReservation);
@@ -109,13 +106,13 @@ class UpdateReservation extends Component {
                               roomType: 'Deluxe Full'
                             });
                             Router.push({
-                              pathname: '/index'
+                              pathname: '/reservations'
                             });
                           }}
                         >
                           <Error error={error} />
                           <fieldset disabled={loading} aria-busy={loading}>
-                            <h2>Book a reservation</h2>
+                            <h2>Modify Your Reservation</h2>
                             <label htmlFor='checkIn'>
                               Check In
                               <br />

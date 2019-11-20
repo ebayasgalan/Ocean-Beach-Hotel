@@ -106,18 +106,18 @@ class Reservation extends Component {
               </p>
               <div className='buttonList'>
                 <div className='items'>
-                  <Link
+                  {/* <Link
                     href={{
                       pathname: '/update',
                       query: { id: reservation.id }
                     }}
                   >
                     <a>Edit ✏️</a>
-                  </Link>
+                  </Link> */}
                 </div>
                 <div className='items'>
                   <DeleteReservation id={reservation.id}>
-                    Cancel ❌
+                    Cancel
                   </DeleteReservation>
                 </div>
               </div>
