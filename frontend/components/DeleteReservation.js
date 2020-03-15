@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Mutation } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
+import styled from 'styled-components';
 import { ALL_RESERVATIONS_QUERY } from './Reservations';
 
 const DELETE_RESERVATION_MUTATION = gql`
@@ -9,6 +10,13 @@ const DELETE_RESERVATION_MUTATION = gql`
     deleteReservation(id: $id) {
       id
     }
+  }
+`;
+
+const StyledDelete = styled.div`
+  button {
+    cursor: pointer;
+    border-radius: 1rem;
   }
 `;
 
@@ -34,26 +42,28 @@ class DeleteReservation extends Component {
         update={this.update}
       >
         {(deleteReservation, { loading, error }) => (
-          <button
-            onClick={() => {
-              if (confirm('Are you sure to cancel this reservation?')) {
-                deleteReservation()
-                  .then(() => {
-                    if (loading) {
-                      return <p>Loading...</p>;
-                    }
-                    Router.push({
-                      pathname: '/reservations'
+          <StyledDelete>
+            <button
+              onClick={() => {
+                if (confirm('Are you sure to cancel this reservation?')) {
+                  deleteReservation()
+                    .then(() => {
+                      if (loading) {
+                        return <p>Loading...</p>;
+                      }
+                      Router.push({
+                        pathname: '/reservations'
+                      });
+                    })
+                    .catch(err => {
+                      alert(err.message);
                     });
-                  })
-                  .catch(err => {
-                    alert(err.message);
-                  });
-              }
-            }}
-          >
-            {this.props.children}
-          </button>
+                }
+              }}
+            >
+              {this.props.children}
+            </button>
+          </StyledDelete>
         )}
       </Mutation>
     );
